@@ -1,26 +1,27 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <BgBanner />
+    <p>Test</p>
+    <h4>hi</h4>
+  </div>
+<!-- <Heading  <title></title> <ModeToggle />/>
+<Input />
+<List  <ListItem /> />
+<LowerBar <ACtion btns />/> --> 
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import BgBanner from './components/BgBanner.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    BgBanner
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="scss" >
+@import './styles/_reset.scss';
+@import './styles/_typo.scss';
 </style>
