@@ -1,8 +1,7 @@
 <template>
   <div>
-    <BgBanner />
-    <p>Test</p>
-    <h4>hi</h4>
+      <!-- the rest of the app inside main shell -->
+    <MainShell />
   </div>
 <!-- <Heading  <title></title> <ModeToggle />/>
 <Input />
@@ -11,17 +10,17 @@
 </template>
 
 <script>
-import BgBanner from './components/BgBanner.vue'
+import MainShell from './components/MainShell.vue';
 
 export default {
   name: 'App',
   components: {
-    BgBanner
+    MainShell
   }
 }
 </script>
 
 <style lang="scss" >
 @import './styles/_reset.scss';
-@import './styles/_typo.scss';
+@import './styles/style.scss';
 </style>

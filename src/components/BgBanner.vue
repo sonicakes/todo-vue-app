@@ -7,20 +7,22 @@ import BgLight from '../assets/bg-desktop-light.jpg';
 import BgDark from '../assets/bg-desktop-dark.jpg';
 
 export default {
-  name: 'HelloWorld',
+  name: 'BgBanner',
   props: {
-    msg: String
+    isLight: Boolean
   },
   data() {
     return {
       bgLight: BgLight,
       bgDark: BgDark,
-      isLight: false
     }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+img {
+  width: 100%;
+  position: relative;
+}
 </style>
