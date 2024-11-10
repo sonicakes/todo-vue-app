@@ -24,5 +24,5 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Additions to OG project requirements:
-- added 'rename app' btn to change app to shopping or other apps with appropriate bg ( currently only shopping list & todo app are accepted, consequently may add input value to fetch api with images). Rename will trigger a mini-modal with just title input
--local storage
+- added option to select whether its a shopping list or a todo list fo tasks
+- local storage

@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div style="height: 100vh;">
       <!-- the rest of the app inside main shell -->
-    <MainShell />
+    <SelectionModal v-if="!selectionMade" @selectedOption="selectedOpt"/>
+    <MainShell v-else/>
+
   </div>
 <!-- <Heading  <title></title> <ModeToggle />/>
 <Input />
@@ -11,12 +13,25 @@
 
 <script>
 import MainShell from './components/MainShell.vue';
-
+import SelectionModal from './components/SelectionModal.vue';
 export default {
   name: 'App',
   components: {
-    MainShell
+    MainShell,
+    SelectionModal
+  },
+  data() {
+    return {
+      selectionMade: ''
+    }
+  },
+  methods :{
+    selectedOpt(selection) {
+    console.log('selection is made!', selection)
+    this.selectionMade = selection;
   }
+  }
+
 }
 </script>
 
