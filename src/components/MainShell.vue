@@ -9,7 +9,7 @@
             <ModeToggle @update-mode="updateMode"/>
         </div>
         <UserInput @entered-item="listItemAdded"/>
-        <ItemsList :items="items"/>
+        <ItemsList v-if="items.length" :items="items"/>
     </div>
 </template>
 
@@ -56,10 +56,8 @@ export default {
 .todo {
     &__main-shell {
         width: 700px;
-        height: 700px;
-        border: 1px solid green;
         position: absolute;
-        top: 150px;
+        top: 100px;
         left: 50%;
         transform: translate(-50%);
     }

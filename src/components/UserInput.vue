@@ -1,8 +1,9 @@
 <template>
-    <div class="user-input__wrapper">
-    <input type="text" v-model="userInput" placeholder="Create a new list item ... " @keyup.enter="enterListItem">
-    <div class="circle"></div>
-</div>
+    <div class="user-input item-circle-wrapper">
+        <input class="item-circle" type="text" v-model="userInput" placeholder="Create a new list item ... "
+            @keyup.enter="enterListItem">
+        <div class="circle"></div>
+    </div>
 </template>
 
 <script>
@@ -16,7 +17,7 @@ export default {
         clearInput() {
             this.userInput = '';
         },
-        enterListItem(){
+        enterListItem() {
             console.log('user input', this.userInput)
             this.$emit('entered-item', this.userInput);
             this.clearInput();
@@ -27,28 +28,18 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/style.scss';
+@import '../styles/shared.scss';
+
 .user-input {
-    &__wrapper {
-position: relative;
+    input {
+        border-radius: 5px;
+        border: none;
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 18px;
+
+        &:focus, &:active {
+            outline: none;
+        }
     }
-}
-input {
-width: 625px;
-height: 50px;
-border-radius: 5px;
-border: none;
-font-family: "Josefin Sans", sans-serif;
-padding: 0 20px 0 55px;
-font-size: 18px;
-}
-.circle {
-    height: 22px;
-    width: 22px;
-    border-radius: 50px;
-    border: 1px solid $light-grayish-blue;
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    transform: translate(0, -50%);
 }
 </style>
