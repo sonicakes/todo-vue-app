@@ -40,5 +40,7 @@ export default {
 img {
   width: 100%;
   position: relative;
+  min-height: 350px;
+  object-fit: cover;
 }
 </style>

@@ -8,31 +8,43 @@
             <button>Switch to other list</button>
             <ModeToggle @update-mode="updateMode"/>
         </div>
+        <UserInput @entered-item="listItemAdded"/>
+        <ItemsList :items="items"/>
     </div>
 </template>
 
 <script lang="js">
 import AppTitle from './AppTitle.vue';
 import BgBanner from './BgBanner.vue';
+import ItemsList from './ItemsList.vue';
 import ModeToggle from './ModeToggle.vue';
+import UserInput from './UserInput.vue';
 
 export default {
     components: {
         ModeToggle,
         AppTitle,
-        BgBanner
+        BgBanner,
+        UserInput,
+        ItemsList
     },
     props: {
         selection: String
     },
     data() {
         return {
-            isLight: true
+            isLight: true,
+            items: []
         }
     },
     methods: {
         updateMode() {
             this.isLight = !this.isLight;
+        },
+        listItemAdded(item) {
+           
+            this.items.push(item)
+            console.log('items', this.items);
         }
     }
 }
@@ -56,6 +68,7 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding-bottom: 30px;
     }
 }
 </style>
