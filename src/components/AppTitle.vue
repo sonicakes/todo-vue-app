@@ -1,7 +1,6 @@
 <template>
     <div class="todo-app__title">  
-    <h1>TODO</h1>
-    <button>Rename app</button>
+    <h1>{{title}}</h1>
     </div>
 
 </template>
@@ -9,6 +8,9 @@
 export default {
 name: 'AppTitle',
 components: {},
+props: {
+    title: String
+}
 }
 </script>
 
@@ -17,6 +19,11 @@ components: {},
     &__title {
         display: flex;
         align-items: center;
+        color: white;
+        letter-spacing: 10px;
+        font-size: 36px;
+        font-weight: 700;
+        text-transform: uppercase;
     }
 }
 </style>

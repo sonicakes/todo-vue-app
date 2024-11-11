@@ -2,7 +2,7 @@
   <div style="height: 100vh;">
       <!-- the rest of the app inside main shell -->
     <SelectionModal v-if="!selectionMade" @selectedOption="selectedOpt"/>
-    <MainShell v-else/>
+    <MainShell v-else :selection="selectionMade"/>
 
   </div>
 <!-- <Heading  <title></title> <ModeToggle />/>

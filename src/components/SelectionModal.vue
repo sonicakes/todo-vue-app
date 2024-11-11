@@ -47,8 +47,7 @@ export default {
     }
 
     img {
-        background: url('../assets/starter-img2.png');
-        width: 600px;
+        width: 700px;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
     }

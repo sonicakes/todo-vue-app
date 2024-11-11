@@ -1,10 +1,11 @@
 <template>
     <div>
-        <BgBanner :is-light="isLight"/>
+        <BgBanner :is-light="isLight" :selection="selection"/>
     </div>
     <div class="todo__main-shell">
         <div class="todo__heading">
-            <AppTitle />
+            <AppTitle :title="selection"/>
+            <button>Switch to other list</button>
             <ModeToggle @update-mode="updateMode"/>
         </div>
     </div>
@@ -20,6 +21,9 @@ export default {
         ModeToggle,
         AppTitle,
         BgBanner
+    },
+    props: {
+        selection: String
     },
     data() {
         return {
@@ -39,11 +43,11 @@ export default {
 
 .todo {
     &__main-shell {
-        width: 600px;
-        height: 600px;
-        background: green;
+        width: 700px;
+        height: 700px;
+        border: 1px solid green;
         position: absolute;
-        top: 50px;
+        top: 150px;
         left: 50%;
         transform: translate(-50%);
     }
