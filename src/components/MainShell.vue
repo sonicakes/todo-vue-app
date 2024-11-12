@@ -9,7 +9,8 @@
             <ModeToggle @update-mode="updateMode"/>
         </div>
         <UserInput @entered-item="listItemAdded"/>
-        <ItemsList v-if="items.length" :items="items"/>
+        <ItemsList v-if="items.length" :items="items" @removal="updatedList"/>
+        <ActionBtns v-if="items.length" :length="items.length"/>
     </div>
 </template>
 
@@ -19,14 +20,15 @@ import BgBanner from './BgBanner.vue';
 import ItemsList from './ItemsList.vue';
 import ModeToggle from './ModeToggle.vue';
 import UserInput from './UserInput.vue';
-
+import ActionBtns from './ActionBtns.vue';
 export default {
     components: {
         ModeToggle,
         AppTitle,
         BgBanner,
         UserInput,
-        ItemsList
+        ItemsList,
+        ActionBtns
     },
     props: {
         selection: String
@@ -45,6 +47,10 @@ export default {
            
             this.items.push(item)
             console.log('items', this.items);
+        },
+        updatedList(item) {
+            console.log('inside main shell')
+            this.items = this.items.filter((listItem) => listItem != item);
         }
     }
 }
@@ -60,6 +66,8 @@ export default {
         top: 100px;
         left: 50%;
         transform: translate(-50%);
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        border-radius: 5px;
     }
 
     &__heading {
