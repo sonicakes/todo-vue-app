@@ -18,7 +18,6 @@ export default {
             this.userInput = '';
         },
         enterListItem() {
-            console.log('user input', this.userInput)
             this.$emit('entered-item', this.userInput);
             this.clearInput();
         }

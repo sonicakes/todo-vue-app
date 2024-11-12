@@ -26,7 +26,6 @@ export default {
     },
     methods: {
         selectionMade(){
-            console.log('hello - made selection', this.picked)
             this.$emit('selectedOption', this.picked)
         }
     }

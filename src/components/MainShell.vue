@@ -9,8 +9,9 @@
             <ModeToggle @update-mode="updateMode"/>
         </div>
         <UserInput @entered-item="listItemAdded"/>
-        <ItemsList v-if="items.length" :items="items" @removal="updatedList"/>
-        <ActionBtns v-if="items.length" :length="items.length"/>
+        <ItemsList v-if="items.length" :items="items" @removal="updatedList" @checked="itemChecked"/>
+        <ActionBtns v-if="items.length" :length="items.length-checkedItems.length" @clear-completed="removeCompleted" :is-clear-enabled="isClearEnabled"/>
+        <div v-if="allCompleted">Congrats! All items completed!</div>
     </div>
 </template>
 
@@ -36,21 +37,47 @@ export default {
     data() {
         return {
             isLight: true,
-            items: []
+            items: [],
+            checkedItems: [],
+            allCompleted: false,
         }
+    },
+    computed : {
+      isClearEnabled() {
+        return this.checkedItems.length > 0;
+      }  
     },
     methods: {
         updateMode() {
             this.isLight = !this.isLight;
         },
         listItemAdded(item) {
-           
             this.items.push(item)
-            console.log('items', this.items);
         },
         updatedList(item) {
-            console.log('inside main shell')
             this.items = this.items.filter((listItem) => listItem != item);
+        },
+        itemChecked(item) {
+            if (this.checkedItems.includes(item)){
+                this.checkedItems = this.checkedItems.filter((listItem) => listItem != item);   
+            }else {
+                this.checkedItems.push(item);
+            }
+        },
+        removeCompleted() {
+            //if nothing is checked, return
+            if (!this.checkedItems.length) {
+                this.isClearEnabled = false;
+                return;
+            } else {
+                //if checked has some items, remove those items from the main items list
+                this.items = this.items.filter((el) => !this.checkedItems.includes(el));
+                this.checkedItems = [];
+                if (!this.items.length) {
+                    this.allCompleted = true;
+                }
+            }
+
         }
     }
 }

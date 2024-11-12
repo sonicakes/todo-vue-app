@@ -1,13 +1,12 @@
 <template>
     <div class="action-btns">
-        <div class="btn btn-light">{{  length }} item{{ length === 1 ? '' : 's' }} left</div>
+        <div class="btn btn-light length">{{  length }} item{{ length === 1 ? '' : 's' }} left</div>
         <div class="filters">
         <div class="btn btn-bold btn-active">All</div>
         <div class="btn btn-bold">Active</div>
-        <div class="btn btn-bold">Completed</div>
+        <div class="btn btn-bold" :class="isClearEnabled ? '' : 'disabled'">Completed</div>
         </div>
-
-        <div class="btn btn-light">Clear Completed</div>
+        <div class="btn btn-light" :class="isClearEnabled ? '' : 'disabled'" @click="clearCompleted">Clear Completed</div>
     </div>
 </template>
 
@@ -23,14 +22,21 @@ export default {
             type: Number,
             required: false,
             default: 0
+        },
+        isClearEnabled :{
+            type: Boolean,
+            required: false,
+            default: true
         }
     },
     computed : {
-        // displayLength() {
-        //     console.log('ength', length)
-        //     return length == 1 ? (length+1) + ' item' : (length+1) + ' items';
-        // }
+    },
+    methods :{
+        clearCompleted() {
+        this.$emit('clear-completed');
     }
+    }
+   
 }</script>
 <style lang="scss">
 @import '../styles/_colors.scss';
@@ -47,12 +53,29 @@ export default {
 
     .btn {
         font-size: 14px;
+        cursor: pointer;
+
         &-active {
           color: $primary-blue;
         }
 
         &-bold{
             font-weight: 700;
+
+            &.disabled {
+                color: $light-gray-blue;
+                cursor: default;
+            }
+        }
+
+        &-light {
+            &.disabled {
+                color: $light-grayish-blue;
+                cursor: default;
+            }
+            &.length {
+                cursor: default;
+            }
         }
 
     }

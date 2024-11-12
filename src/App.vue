@@ -27,7 +27,6 @@ export default {
   },
   methods :{
     selectedOpt(selection) {
-    console.log('selection is made!', selection)
     this.selectionMade = selection;
   }
   }

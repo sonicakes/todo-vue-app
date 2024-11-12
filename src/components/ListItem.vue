@@ -1,8 +1,8 @@
 <template>
     <div class="item-circle-wrapper">
-        <div class="item-circle">{{ item }}</div>
-        <div class="circle" :class="isChecked ? 'checked' : ''" @click="checkedItem"></div>
-        <div class="cross" @click="removedItem(item)">
+        <div class="item-circle" :class="isChecked ? 'checked' : ''">{{ item }}</div>
+        <div class="circle" :class="isChecked ? 'checked' : ''" @click="checkedItem(item)"></div>
+        <div v-if="!isChecked" class="cross" @click="removedItem(item)">
             <img :src="iconCross">
         </div>
     </div>
@@ -12,27 +12,25 @@ import IconCross from '../assets/icon-cross.svg'
 export default {
     data() {
         return {
-iconCross: IconCross,
-isChecked: false
+            iconCross: IconCross,
+            isChecked: false
         }
-},
-props: {
-    item:  {
-    type: String,
-    required: true
-}
-},
-methods: {
-    removedItem(i) {
-    console.log('removed!', i);
-    this.$emit('remove', i)
-},
-checkedItem() {
-
-this.isChecked = !this.isChecked;
-console.log('checked',this.isChecked)
-}
-}
+    },
+    props: {
+        item: {
+            type: String,
+            required: true
+        }
+    },
+    methods: {
+        removedItem(i) {
+            this.$emit('remove', i)
+        },
+        checkedItem(i) {
+            this.isChecked = !this.isChecked;
+            this.$emit('item-checked', i);
+        }
+    }
 
 }
 </script>
@@ -55,6 +53,11 @@ console.log('checked',this.isChecked)
 
 .item-circle {
     border-bottom: 1px solid $light-grayish-blue;
+
+    &.checked {
+        text-decoration: line-through;
+        color: $light-gray-blue;
+    }
 }
 
 .circle {
@@ -63,9 +66,10 @@ console.log('checked',this.isChecked)
     &.checked {
         background: linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
 
-        &:hover {
-        background-image:  linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
-}
+         &:hover {
+            background: linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+            border: none;
+        }
 
 &:after {
     content:url('../assets/icon-check.svg');
