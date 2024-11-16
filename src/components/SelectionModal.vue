@@ -70,7 +70,7 @@ export default {
     }
 
     span {
-        margin-bottom: 12px;
+        margin-bottom: 20px;
         cursor: pointer;
     }
     &-center {

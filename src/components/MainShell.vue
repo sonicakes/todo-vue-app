@@ -5,7 +5,7 @@
     <div class="todo__main-shell">
         <div class="todo__heading">
             <AppTitle :title="selection"/>
-            <button @click="returnToList">Switch to other list</button>
+            <img @click="returnToList" class="return" :src="returnImg">
             <ModeToggle @update-mode="updateMode"/>
         </div>
         <UserInput @entered-item="listItemAdded"/>
@@ -22,6 +22,7 @@ import ItemsList from './ItemsList.vue';
 import ModeToggle from './ModeToggle.vue';
 import UserInput from './UserInput.vue';
 import ActionBtns from './ActionBtns.vue';
+import ReturnImg from '../assets/return.svg'
 export default {
     components: {
         ModeToggle,
@@ -40,6 +41,7 @@ export default {
             items: [],
             checkedItems: [],
             allCompleted: false,
+            returnImg: ReturnImg
         }
     },
     computed : {
@@ -70,8 +72,10 @@ export default {
                 this.isClearEnabled = false;
                 return;
             } else {
-                //if checked has some items, remove those items from the main items list
-                this.items = this.items.filter((el) => !this.checkedItems.includes(el));
+                //if checked has some items, remove those items from the main items list, unless its bisto
+                this.items = this.items.filter(
+                    (el) => !this.checkedItems.includes(el)
+                );
                 this.checkedItems = [];
                 if (!this.items.length) {
                     this.allCompleted = true;
@@ -82,7 +86,14 @@ export default {
         returnToList() {
             this.$emit('return-to-menu')
         }
+    },
+    mounted() {
+        console.log('mounted', this.selection);
+        if (this.selection === 'shopping'){
+            this.items.push('Bisto')
+        }
     }
+
 }
 
 </script>
@@ -98,13 +109,25 @@ export default {
         transform: translate(-50%);
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         border-radius: 5px;
+
+        img {
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+
+        &.return {
+            margin-left: auto;
+            margin-right: 20px;
+        }
+    }
     }
 
     &__heading {
         display: flex;
-        justify-content: space-between;
         align-items: center;
         padding-bottom: 30px;
     }
+
+   
 }
 </style>

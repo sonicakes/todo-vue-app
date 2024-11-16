@@ -14,6 +14,7 @@
         color: $very-dark-grayish-blue;
         text-transform: capitalize;
         border-bottom: 1px solid $light-grayish-blue;
+        padding-top: 5px;
 
         &.checked {
             text-decoration: line-through;
