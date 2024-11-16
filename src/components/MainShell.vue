@@ -102,13 +102,17 @@ export default {
 
 .todo {
     &__main-shell {
-        width: 700px;
+        width: 300px;
         position: absolute;
         top: 100px;
         left: 50%;
         transform: translate(-50%);
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         border-radius: 5px;
+
+        @media (min-width: 1024px) {
+            width: 700px;
+        }
 
         img {
         width: 25px;

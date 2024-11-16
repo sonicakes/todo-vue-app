@@ -21,9 +21,15 @@ props: {
         align-items: center;
         color: white;
         letter-spacing: 10px;
-        font-size: 36px;
+        font-size: 22px;
         font-weight: 700;
         text-transform: uppercase;
+
+        @media (min-width: 1024px) {
+       
+            font-size: 36px;
+
+        }
     }
 }
 </style>

@@ -50,10 +50,15 @@ export default {
 @import '../styles/shared.scss';
 .todo-app {
     &__selection-modal{
-        width: 700px;
-        height: 700px;
+        width: 300px;
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         border-radius: 5px;
+
+        @media (min-width: 1024px) {
+            width: 700px;
+            height: 700px;
+
+        }
 
 
     &-wrapper {
@@ -64,9 +69,13 @@ export default {
     }
 
     img {
-        width: 700px;
+        width: 300px;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
+
+        @media (min-width: 1024px) {
+            width: 700px;
+        }
     }
 
     span {
@@ -75,7 +84,12 @@ export default {
     }
     &-center {
     text-align: center;
-    padding-top: 55px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    @media (min-width: 1024px) {
+        padding-top: 55px;
+        }
     }
  } 
 }
