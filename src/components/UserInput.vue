@@ -2,7 +2,7 @@
     <div class="user-input item-circle-wrapper">
         <input class="item-circle" type="text" v-model="userInput" placeholder="Create a new list item ... "
             @keyup.enter="enterListItem">
-        <div class="circle"></div>
+        <div class="circle no-hover"></div>
     </div>
 </template>
 

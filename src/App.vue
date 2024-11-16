@@ -2,7 +2,7 @@
   <div style="height: 100vh;">
       <!-- the rest of the app inside main shell -->
     <SelectionModal v-if="!selectionMade" @selectedOption="selectedOpt"/>
-    <MainShell v-else :selection="selectionMade"/>
+    <MainShell v-else :selection="selectionMade" @return-to-menu="returnToMenu"/>
 
   </div>
 <!-- <Heading  <title></title> <ModeToggle />/>
@@ -28,6 +28,9 @@ export default {
   methods :{
     selectedOpt(selection) {
     this.selectionMade = selection;
+  },
+  returnToMenu() {
+    this.selectionMade = '';
   }
   }
 

@@ -3,13 +3,26 @@
         <div class="todo-app__selection-modal">
             <img :src="poster">
             <div>
-                <div>Picked: {{ picked }}</div>
-                <input type="radio" id="one" value="Shopping" v-model="picked" />
-                <label for="one">Shopping</label>
-                <input type="radio" id="two" value="Todo" v-model="picked" />
-                <label for="two">Todo</label>
+                <div class="item-circle-wrapper">
+                   
+                   <input style="visibility: hidden" type="radio" id="one" value="shopping" v-model="picked" />                    
+                   <label for="one" class="item-circle"><span>Shopping</span>
+                       <div class="circle" :class="picked=='shopping' ? 'checked' : ''" ></div>
+                   </label>
+                   
+               </div>
+                <div class="item-circle-wrapper">
+                   
+                    <input style="visibility: hidden" type="radio" id="two" value="todo" v-model="picked" />                    
+                    <label for="two" class="item-circle"><span>Todos</span>
+                        <div class="circle" :class="picked==='todo' ? 'checked' : ''" ></div>
+                    </label>
+                    
+                </div>
             </div>
-            <button @click="selectionMade">Start</button>
+            <div class="todo-app__selection-modal-center">
+            <button @click="selectionMade" class="btn-gradient">Start</button>
+            </div>
         </div>
     </div>
 </template>
@@ -21,22 +34,27 @@ export default {
     data() {
         return {
             poster: BgPoster,
-            picked: ''
+            picked: '',
         }
     },
     methods: {
         selectionMade(){
             this.$emit('selectedOption', this.picked)
-        }
+        },
     }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/style.scss';
+@import '../styles/shared.scss';
 .todo-app {
     &__selection-modal{
-        width: 600px;
-        height: 600px;
+        width: 700px;
+        height: 700px;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        border-radius: 5px;
+
 
     &-wrapper {
         display: flex;
@@ -49,6 +67,15 @@ export default {
         width: 700px;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
+    }
+
+    span {
+        margin-bottom: 12px;
+        cursor: pointer;
+    }
+    &-center {
+    text-align: center;
+    padding-top: 55px;
     }
  } 
 }

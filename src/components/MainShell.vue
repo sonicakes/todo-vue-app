@@ -5,7 +5,7 @@
     <div class="todo__main-shell">
         <div class="todo__heading">
             <AppTitle :title="selection"/>
-            <button>Switch to other list</button>
+            <button @click="returnToList">Switch to other list</button>
             <ModeToggle @update-mode="updateMode"/>
         </div>
         <UserInput @entered-item="listItemAdded"/>
@@ -78,6 +78,9 @@ export default {
                 }
             }
 
+        },
+        returnToList() {
+            this.$emit('return-to-menu')
         }
     }
 }

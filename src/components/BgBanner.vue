@@ -25,7 +25,7 @@ export default {
   },
   computed : {
     defineBg() {
-      if (this.selection === 'Shopping') {
+      if (this.selection === 'shopping') {
         return this.isLight ? this.bisto : this.darkBisto;
       } else {
         return this.isLight ? this.bgLight : this.bgDark;
