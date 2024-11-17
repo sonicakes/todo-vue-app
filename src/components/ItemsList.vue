@@ -6,22 +6,12 @@
 <script>
 import ListItem from './ListItem.vue';
 export default {
-    data() {
-        return {
-          
-        }
-    },
     props: {
         items: []
     },
     components: {
         ListItem
     },
-    methods:{
-        // itemChecked(item) {
-        //     this.$emit('checked', item)
-        // }
-    }
 }
 </script>
 

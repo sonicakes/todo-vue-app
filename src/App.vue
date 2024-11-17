@@ -1,7 +1,7 @@
 <template>
-  <div style="height: 100vh;">
+  <div style="height: 100vh;" :class="isLightTheme ? 'light-mode' : 'dark-mode'">
     <SelectionModal v-if="!selectionMade" @selectedOption="selectedOpt"/>
-    <MainShell v-else :selection="selectionMade" @return-to-menu="returnToMenu"/>
+    <MainShell v-else :selection="selectionMade" @return-to-menu="returnToMenu" @theme-updated="updateThemeClass"/>
   </div>
 </template>
 
@@ -16,7 +16,8 @@ export default {
   },
   data() {
     return {
-      selectionMade: ''
+      selectionMade: '',
+      isLightTheme: true
     }
   },
   methods :{
@@ -25,6 +26,11 @@ export default {
   },
   returnToMenu() {
     this.selectionMade = '';
+    this.isLightTheme = true;
+  },
+  updateThemeClass(theme) {
+    console.log('thtme - is light', theme);
+    this.isLightTheme = !this.isLightTheme;
   }
   }
 

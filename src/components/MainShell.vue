@@ -53,7 +53,8 @@ export default {
     },
     provide() {
         //we can also use inject/provide pattern with events emitting if we're just funneling them through
-    return {
+        //provide things in the parent, inject it into the child 
+        return {
       removeItem: this.updatedList,
       checkItem: this.itemChecked
     }
@@ -62,6 +63,7 @@ export default {
     methods: {
         updateMode() {
             this.isLight = !this.isLight;
+            this.$emit('theme-updated', this.isLight);
         },
         listItemAdded(item) {
             this.items.push(item)
@@ -114,7 +116,7 @@ export default {
 
 .todo {
     &__main-shell {
-        width: 300px;
+        width: 90%;
         position: absolute;
         top: 100px;
         left: 50%;

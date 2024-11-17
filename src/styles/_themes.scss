@@ -1,0 +1,45 @@
+.light-mode {
+    background: $light-gray;
+}
+
+.dark-mode {
+    background: $very-dark-blue;
+
+    .item-circle-wrapper .item-circle{
+        background: $very-dark-desaturated-blue;
+        color: $light-grayish-blue-dark;
+        border-bottom-color:  $very-dark-grayish-blue-darker;
+    }
+
+    .item-circle-wrapper .item-circle.checked {
+        color: $dark-grayish-blue-dark;
+
+    }
+
+    .item-circle-wrapper .circle {
+        border: 1px solid $very-dark-grayish-blue-dark;
+    }
+
+    ::-webkit-input-placeholder{
+      color:  $dark-grayish-blue-dark;
+    }
+
+    .action-btns {
+        color:  $dark-grayish-blue-dark;  
+        background: $very-dark-desaturated-blue;
+        box-shadow: none;
+    }
+
+    .action-btns .btn-bold.disabled {
+        color: $very-dark-grayish-blue-darker;
+    }
+
+    .action-btns .btn-light.disabled {
+        color: $very-dark-grayish-blue-darker;
+    }
+
+    .todo__main-shell {
+        box-shadow: none;
+    }
+
+}
