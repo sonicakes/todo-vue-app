@@ -1,6 +1,6 @@
 <template>
 <div class="items-list">
-    <ListItem v-for="item in items" :key="item" :item="item" @remove="itemRemoved" @item-checked="itemChecked"/>
+    <ListItem v-for="item in items" :key="item" :item="item"/>
 </div>
 </template>
 <script>
@@ -18,12 +18,9 @@ export default {
         ListItem
     },
     methods:{
-        itemRemoved(item) {
-            this.$emit('removal', item)
-        },
-        itemChecked(item) {
-            this.$emit('checked', item)
-        }
+        // itemChecked(item) {
+        //     this.$emit('checked', item)
+        // }
     }
 }
 </script>

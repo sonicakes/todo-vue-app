@@ -2,7 +2,7 @@
     <div class="item-circle-wrapper">
         <div class="item-circle" :class="isChecked ? 'checked' : ''">{{ item }}</div>
         <div class="circle" :class="isChecked ? 'checked' : ''" @click="checkedItem(item)"></div>
-        <div v-if="!isChecked && item!='Bisto'" class="cross" @click="removedItem(item)">
+        <div v-if="!isChecked && item!='Bisto'" @click="removeItem(item)" class="cross">
             <img :src="iconCross">
         </div>
         <div v-if="item==='Bisto'"> <img class="bisto-icon" :src="isChecked ? bistoBlue : bistoPurple"></div>
@@ -21,6 +21,7 @@ export default {
             bistoBlue: BistoBlue
         }
     },
+    inject: ['removeItem', 'checkItem'],
     props: {
         item: {
             type: String,
@@ -28,12 +29,9 @@ export default {
         }
     },
     methods: {
-        removedItem(i) {
-            this.$emit('remove', i)
-        },
         checkedItem(i) {
             this.isChecked = !this.isChecked;
-            this.$emit('item-checked', i);
+            this.checkItem(i);
         }
     }
 

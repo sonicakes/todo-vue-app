@@ -11,7 +11,7 @@
         <UserInput @entered-item="listItemAdded"/>
         <ItemsList v-if="items.length" :items="items" @removal="updatedList" @checked="itemChecked"/>
         <ActionBtns v-if="items.length" :length="items.length-checkedItems.length" @clear-completed="removeCompleted" :is-clear-enabled="isClearEnabled"/>
-        <div v-if="allCompleted">Congrats! All items completed!</div>
+        <!-- <div v-if="allCompleted">Congrats! All items completed!</div> -->
     </div>
 </template>
 
@@ -40,6 +40,7 @@ export default {
             isLight: true,
             items: [],
             checkedItems: [],
+            //todo - reset allcompleted when adding new items
             allCompleted: false,
             returnImg: ReturnImg
         }
@@ -47,8 +48,17 @@ export default {
     computed : {
       isClearEnabled() {
         return this.checkedItems.length > 0;
-      }  
+      },
+      
     },
+    provide() {
+        //we can also use inject/provide pattern with events emitting if we're just funneling them through
+    return {
+      removeItem: this.updatedList,
+      checkItem: this.itemChecked
+    }
+
+  },
     methods: {
         updateMode() {
             this.isLight = !this.isLight;
@@ -57,6 +67,7 @@ export default {
             this.items.push(item)
         },
         updatedList(item) {
+            console.log('updated list', item)
             this.items = this.items.filter((listItem) => listItem != item);
         },
         itemChecked(item) {
@@ -65,6 +76,7 @@ export default {
             }else {
                 this.checkedItems.push(item);
             }
+            console.log('item checked', item)
         },
         removeCompleted() {
             //if nothing is checked, return
