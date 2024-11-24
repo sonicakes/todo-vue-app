@@ -46,24 +46,24 @@ export default {
             isShoppingMode: this.selection === 'shopping'
         }
     },
-    computed : {
-      isClearEnabled() {
-        return this.checkedItems.length > 0;
-      },
-      getLocalStorageObj(){
-        const mode = this.isShoppingMode ? 'shoppingList' : 'todoList';
-        return JSON.parse(localStorage.getItem(mode));
-      }
+    computed: {
+        isClearEnabled() {
+            return this.checkedItems.length > 0;
+        },
+        getLocalStorageObj() {
+            const mode = this.isShoppingMode ? 'shoppingList' : 'todoList';
+            return JSON.parse(localStorage.getItem(mode));
+        }
     },
     provide() {
         //we can also use inject/provide pattern with events emitting if we're just funneling them through
         //provide things in the parent, inject it into the child 
         return {
-      removeItem: this.updatedList,
-      checkItem: this.itemChecked
-    }
+            removeItem: this.updatedList,
+            checkItem: this.itemChecked
+        }
 
-  },
+    },
     methods: {
         updateMode() {
             this.isLight = !this.isLight;
@@ -71,44 +71,16 @@ export default {
         },
         listItemAdded(item) {
             this.items.push(item);
-            let shoppingList = {};
-            let todoList = {};
-            //todo - shorten
-            if (this.isShoppingMode) {
-                this.items.forEach((el, index) => {
-                    shoppingList[index] = el;
-                })
-                localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
-            } else {
-                this.items.forEach((el, index) => {
-                    todoList[index] = el;
-                })
-                localStorage.setItem('todoList', JSON.stringify(todoList));
-            }
+            this.updateLocalStorage();
         },
         updatedList(item) {
-            console.log('updated list', item)
             this.items = this.items.filter((listItem) => listItem != item);
-            //update local storage as well
-            //todo - repetition - move into its own method
-            let shoppingList = {};
-            let todoList = {};
-            if (this.isShoppingMode) {
-                this.items.forEach((el, index) => {
-                    shoppingList[index] = el;
-                })
-                localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
-            } else {
-                this.items.forEach((el, index) => {
-                    todoList[index] = el;
-                })
-                localStorage.setItem('todoList', JSON.stringify(todoList));
-            } 
+            this.updateLocalStorage();
         },
         itemChecked(item) {
-            if (this.checkedItems.includes(item)){
-                this.checkedItems = this.checkedItems.filter((listItem) => listItem != item);   
-            }else {
+            if (this.checkedItems.includes(item)) {
+                this.checkedItems = this.checkedItems.filter((listItem) => listItem != item);
+            } else {
                 this.checkedItems.push(item);
             }
         },
@@ -126,23 +98,31 @@ export default {
                 if (!this.items.length) {
                     this.allCompleted = true;
                 }
+                this.updateLocalStorage();
             }
 
         },
         returnToList() {
             this.$emit('return-to-menu')
         },
-        setLocalStorage(val){
+        setLocalStorage(val) {
             const mode = this.isShoppingMode ? 'shoppingList' : 'todoList';
             localStorage.setItem(mode, JSON.stringify(val));
-        }
-    },
-    mounted() {
-        //todo - shorten
-        console.log('is shopping?', this.isShoppingMode)
-
-        if (this.isShoppingMode) {
-            this.items.push('Bisto');
+        },
+        updateLocalStorage() {
+            let list = {};
+            let listName = '';
+            if (this.isShoppingMode) {
+                listName = 'shoppingList';
+            } else {
+                listName = 'todoList';
+            }
+            this.items.forEach((el, index) => {
+                list[index] = el;
+            })
+            localStorage.setItem(listName, JSON.stringify(list));
+        },
+        updateListItemsFromStorage() {
             let retrievedObject = this.getLocalStorageObj;
             if (retrievedObject) {
                 for (const [key, value] of Object.entries(retrievedObject)) {
@@ -152,16 +132,15 @@ export default {
                     }
                 }
             }
-        } else {
-            let retrievedObject = this.getLocalStorageObj;
-            if (retrievedObject) {
-                for (const [key, value] of Object.entries(retrievedObject)) {
-                    this.items.push(value);
-                    console.log('key', key)
-                }
-            }
         }
-    }
+    },
+    mounted() {
+        if (this.isShoppingMode) {
+            this.items.push('Bisto');
+        }
+        this.updateListItemsFromStorage();
+    },
+
 }
 
 </script>
