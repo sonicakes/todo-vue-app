@@ -1,19 +1,24 @@
-<template>
+<template >
     <div class="item-circle-wrapper">
         <div class="item-circle" :class="isChecked ? 'checked' : ''">{{ item }}</div>
         <div class="circle" :class="isChecked ? 'checked' : ''" @click="checkedItem(item)"></div>
-        <div v-if="showCross" @click="removeItem(item)" :class="isMobile() ? 'cross mobile' : 'cross'">
+        <div v-if="showCross" @click="removeItem($event, item)" :class="isMobile() ? 'cross mobile' : 'cross'">
             <img :src="iconCross">
         </div>
         <div v-if="item==='Bisto'"> <img class="bisto-icon" :src="isChecked ? bistoBlue : bistoPurple"></div>
     </div>
 </template>
+
+
+   
 <script>
 import IconCross from '../assets/icon-cross.svg';
 import BistoPurple from '../assets/milk-purple.svg';
 import BistoBlue from '../assets/milk-blue.svg';
 import { isMobile } from '@/helpers/mobile';
 export default {
+    components:{
+    },
     data() {
         return {
             iconCross: IconCross,

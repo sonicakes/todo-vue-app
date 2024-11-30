@@ -1,16 +1,23 @@
 <template>
     <div>
-        <BgBanner :is-light="isLight" :selection="selection"/>
+        <BgBanner :is-light="isLight" :selection="selection" />
     </div>
     <div class="todo__main-shell">
         <div class="todo__heading">
-            <AppTitle :title="selection"/>
+            <AppTitle :title="selection" />
             <img @click="returnToList" class="return" :src="returnImg">
-            <ModeToggle @update-mode="updateMode"/>
+            <ModeToggle @update-mode="updateMode" />
         </div>
-        <UserInput @entered-item="listItemAdded"/>
-        <ItemsList v-if="items.length" :items="items" @removal="updatedList" @checked="itemChecked"/>
-        <ActionBtns v-if="items.length" :length="items.length-checkedItems.length" @clear-completed="removeCompleted" :is-clear-enabled="isClearEnabled"/>
+        <UserInput @entered-item="listItemAdded" />
+        <div class="items-list">
+            <draggable v-model="items" :animation="300">
+                <template #item="{ element: item }">
+                    <ListItem :item="item" />
+                </template>
+            </draggable>
+        </div>
+        <ActionBtns v-if="items.length" :length="items.length-checkedItems.length" @clear-completed="removeCompleted"
+            :is-clear-enabled="isClearEnabled" />
         <!-- <div v-if="allCompleted">Congrats! All items completed!</div> -->
     </div>
 </template>
@@ -18,19 +25,22 @@
 <script lang="js">
 import AppTitle from './AppTitle.vue';
 import BgBanner from './BgBanner.vue';
-import ItemsList from './ItemsList.vue';
 import ModeToggle from './ModeToggle.vue';
 import UserInput from './UserInput.vue';
 import ActionBtns from './ActionBtns.vue';
 import ReturnImg from '../assets/return.svg'
+import draggable from 'vuedraggable'
+import ListItem from './ListItem.vue';
+
 export default {
     components: {
         ModeToggle,
         AppTitle,
         BgBanner,
         UserInput,
-        ItemsList,
-        ActionBtns
+        ActionBtns,
+        draggable,
+        ListItem
     },
     props: {
         selection: String
@@ -73,7 +83,9 @@ export default {
             this.items.push(item);
             this.updateLocalStorage();
         },
-        updatedList(item) {
+        updatedList(ev, item) {
+            console.log('clicked', ev, item)
+            ev.preventDefault()
             this.items = this.items.filter((listItem) => listItem != item);
             this.updateLocalStorage();
         },
