@@ -10,11 +10,10 @@
         </div>
         <UserInput @entered-item="listItemAdded" />
         <div class="items-list">
-            <draggable v-model="items" :animation="300">
-                <template #item="{ element: item }">
-                    <ListItem :item="item" />
-                </template>
-            </draggable>
+          
+              
+                    <ListItem :item="item" v-for="item in items" :key="item.name"/>
+              
         </div>
         <ActionBtns v-if="items.length" :length="items.length-checkedItems.length" @clear-completed="removeCompleted"
             :is-clear-enabled="isClearEnabled" />
@@ -30,7 +29,6 @@ import ModeToggle from './ModeToggle.vue';
 import UserInput from './UserInput.vue';
 import ActionBtns from './ActionBtns.vue';
 import ReturnImg from '../assets/return.svg'
-import draggable from 'vuedraggable'
 import ListItem from './ListItem.vue';
 
 export default {
@@ -40,7 +38,6 @@ export default {
         BgBanner,
         UserInput,
         ActionBtns,
-        draggable,
         ListItem,
     },
     props: {
