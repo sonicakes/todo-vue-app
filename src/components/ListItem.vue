@@ -17,8 +17,6 @@ import BistoPurple from '../assets/milk-purple.svg';
 import BistoBlue from '../assets/milk-blue.svg';
 import { isMobile } from '@/helpers/mobile';
 export default {
-    components:{
-    },
     data() {
         return {
             iconCross: IconCross,

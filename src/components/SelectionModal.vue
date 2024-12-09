@@ -2,6 +2,7 @@
     <div class="todo-app__selection-modal-wrapper">
         <div class="todo-app__selection-modal">
             <img :src="poster">
+            <div class="todo-app__msg">Hi! Please select which list you'd like to create: shopping or todos and press 'start'.</div>
             <div>
                 <div class="item-circle-wrapper">
                    
@@ -21,7 +22,7 @@
                 </div>
             </div>
             <div class="todo-app__selection-modal-center">
-            <button @click="selectionMade" class="btn-gradient">Start</button>
+            <button @click="selectionMade" class="btn-gradient" :class="{disabled: picked===''}">Start</button>
             </div>
         </div>
     </div>
@@ -93,5 +94,23 @@ export default {
         }
     }
  } 
+ &__msg {
+    font-size: 16px;
+    text-align: center;
+    padding: 10px 0;
+    background: #171D54;
+    color: white;
+    position: absolute;
+    z-index: 999;
+    top: 370px;
+    width: 300px;
+
+    
+    @media (min-width: 1024px) {
+        width: 700px;
+        top: 480px;
+        font-size: 18px;
+        }
+    }
 }
 </style>

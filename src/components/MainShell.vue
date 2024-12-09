@@ -19,6 +19,7 @@
         <ActionBtns v-if="items.length" :length="items.length-checkedItems.length" @clear-completed="removeCompleted"
             :is-clear-enabled="isClearEnabled" />
         <!-- <div v-if="allCompleted">Congrats! All items completed!</div> -->
+         <RatingComponent v-model="rating" />
     </div>
 </template>
 
@@ -40,7 +41,7 @@ export default {
         UserInput,
         ActionBtns,
         draggable,
-        ListItem
+        ListItem,
     },
     props: {
         selection: String
@@ -53,7 +54,7 @@ export default {
             //todo - reset allcompleted when adding new items
             allCompleted: false,
             returnImg: ReturnImg,
-            isShoppingMode: this.selection === 'shopping'
+            isShoppingMode: this.selection === 'shopping',
         }
     },
     computed: {

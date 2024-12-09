@@ -18,6 +18,11 @@
 
     .item-circle-wrapper .circle {
         border: 1px solid $very-dark-grayish-blue-dark;
+
+        &:hover{
+            background-image: linear-gradient($very-dark-desaturated-blue, $very-dark-desaturated-blue), linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+
+        }
     }
 
     ::-webkit-input-placeholder{
