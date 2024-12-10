@@ -14,7 +14,6 @@
         </div>
         <ActionBtns v-if="items.length" :length-all="items.length-checkedItems.length" :length-completed="completedList.length" @clear-completed="removeCompleted"
             :is-clear-enabled="isClearEnabled" @show-completed="showCompletedItems" @show-all="showAllItems" @show-active="showActiveItems"/>
-        <!-- <div v-if="allCompleted">Congrats! All items completed!</div> -->
          <RatingComponent v-model="rating" />
     </div>
 </template>
@@ -45,8 +44,6 @@ export default {
             isLight: true,
             items: [],
             checkedItems: [],
-            //todo - reset allcompleted when adding new items
-            allCompleted: false,
             returnImg: ReturnImg,
             isShoppingMode: this.selection === 'shopping',
             completedList: [],
@@ -103,9 +100,6 @@ export default {
                     (el) => !this.checkedItems.includes(el)
                 );
                 this.checkedItems = [];
-                if (!this.items.length) {
-                    this.allCompleted = true;
-                }
                 this.updateLocalStorage();
             }
 
@@ -159,7 +153,7 @@ export default {
                     }
                 }
             }
-        }
+        },
     },
     mounted() {
         if (this.isShoppingMode) {
