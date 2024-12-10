@@ -10,13 +10,10 @@
         </div>
         <UserInput @entered-item="listItemAdded" />
         <div class="items-list">
-          
-              
-                    <ListItem :item="item" v-for="item in items" :key="item.name"/>
-              
+            <ListItem :item="item" v-for="item in items" :key="item.name" :completed-list="completedList" :active-list="activeList"/>     
         </div>
-        <ActionBtns v-if="items.length" :length="items.length-checkedItems.length" @clear-completed="removeCompleted"
-            :is-clear-enabled="isClearEnabled" />
+        <ActionBtns v-if="items.length" :length-all="items.length-checkedItems.length" :length-completed="completedList.length" @clear-completed="removeCompleted"
+            :is-clear-enabled="isClearEnabled" @show-completed="showCompletedItems" @show-all="showAllItems" @show-active="showActiveItems"/>
         <!-- <div v-if="allCompleted">Congrats! All items completed!</div> -->
          <RatingComponent v-model="rating" />
     </div>
@@ -52,6 +49,8 @@ export default {
             allCompleted: false,
             returnImg: ReturnImg,
             isShoppingMode: this.selection === 'shopping',
+            completedList: [],
+            activeList: []
         }
     },
     computed: {
@@ -82,7 +81,6 @@ export default {
             this.updateLocalStorage();
         },
         updatedList(ev, item) {
-            console.log('clicked', ev, item)
             ev.preventDefault()
             this.items = this.items.filter((listItem) => listItem != item);
             this.updateLocalStorage();
@@ -111,6 +109,25 @@ export default {
                 this.updateLocalStorage();
             }
 
+        },
+        showCompletedItems() {
+            this.resetLists();
+            this.completedList = this.items.filter(
+                    (el) => this.checkedItems.includes(el)
+                );
+        },
+        showAllItems() {
+            this.resetLists();
+        },
+        showActiveItems() {
+            this.resetLists();
+            this.activeList = this.items.filter(
+                    (el) => !this.checkedItems.includes(el)
+                );
+        },
+        resetLists(){
+            this.completedList = [];
+            this.activeList = [];
         },
         returnToList() {
             this.$emit('return-to-menu')

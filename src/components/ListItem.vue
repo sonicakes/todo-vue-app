@@ -1,5 +1,5 @@
 <template >
-    <div class="item-circle-wrapper">
+    <div class="item-circle-wrapper" :class="{hidden: isActiveHidden || isCompleteHidden}">
         <div class="item-circle" :class="isChecked ? 'checked' : ''">{{ item }}</div>
         <div class="circle" :class="isChecked ? 'checked' : ''" @click="checkedItem(item)"></div>
         <div v-if="showCross" @click="removeItem($event, item)" :class="isMobile() ? 'cross mobile' : 'cross'">
@@ -29,13 +29,27 @@ export default {
     inject: ['removeItem', 'checkItem'],
     computed: {
         showCross() {
-        return  !this.isChecked && this.item != 'Bisto';
+            return  !this.isChecked && this.item != 'Bisto';
+        },
+        isCompleteHidden () {
+            return this.completedList.length > 0 && !this.completedList.includes(this.item);
+        },
+        isActiveHidden () {
+            return this.activeList.length > 0 && !this.activeList.includes(this.item);
         }
     },
     props: {
         item: {
             type: String,
             required: true
+        },
+        completedList: {
+            type: Array,
+            required: false
+        },
+        activeList :{
+            type: Array,
+            required: false
         }
     },
     methods: {

@@ -1,18 +1,19 @@
 <template>
     <div class="action-btns">
-        <div class="btn btn-light length">{{ length }} item{{ length === 1 ? '' : 's' }} left</div>
+        <div v-if="selectedBtn === 'completed'" class="btn btn-light length">{{ lengthCompleted }} item{{ lengthCompleted === 1 ? '' : 's' }} completed</div>
+        <div v-else class="btn btn-light length" >{{ lengthAll }} item{{ lengthAll === 1 ? '' : 's' }} left</div>
         <div v-if="!mobile()" class="filters">
-            <div class="btn btn-bold btn-active">All</div>
-            <div class="btn btn-bold">Active</div>
-            <div class="btn btn-bold" :class="isClearEnabled ? '' : 'disabled'">Completed</div>
+            <div class="btn btn-bold" :class="{'btn-active': selectedBtn === 'all'}" @click="showAll">All</div>
+            <div class="btn btn-bold" :class="{'btn-active': selectedBtn === 'active'}" @click="showActive">Active</div>
+            <div class="btn btn-bold" :class="{disabled: !isClearEnabled, 'btn-active': selectedBtn === 'completed'}" @click="showCompleted">Completed</div>
         </div>
         <div class="btn btn-light" :class="isClearEnabled ? '' : 'disabled'" @click="clearCompleted">Clear Completed
         </div>
     </div>
     <div v-if="mobile()" class="action-btns filters mobile">
-        <div class="btn btn-bold btn-active">All</div>
-        <div class="btn btn-bold">Active</div>
-        <div class="btn btn-bold" :class="isClearEnabled ? '' : 'disabled'">Completed</div>
+        <div class="btn btn-bold" :class="{'btn-active': selectedBtn === 'all'}" @click="showAll">All</div>
+        <div class="btn btn-bold" :class="{'btn-active': selectedBtn === 'active'}" @click="showActive">Active</div>
+        <div class="btn btn-bold" :class="{disabled: !isClearEnabled, 'btn-active': selectedBtn === 'completed'}" @click="showCompleted">Completed</div>
     </div>
 </template>
 
@@ -22,11 +23,17 @@ import { isMobile } from '@/helpers/mobile';
 export default {
     data() {
         return {
-           mobile: isMobile
+           mobile: isMobile,
+           selectedBtn : 'all'
         }
     },
     props:{
-        length: {
+        lengthAll: {
+            type: Number,
+            required: false,
+            default: 0
+        },
+        lengthCompleted: {
             type: Number,
             required: false,
             default: 0
@@ -37,12 +44,22 @@ export default {
             default: true
         }
     },
-    computed : {
-    },
-    methods :{
+    methods: {
         clearCompleted() {
-        this.$emit('clear-completed');
-    }
+            this.$emit('clear-completed');
+        },
+        showCompleted() {
+            this.$emit('show-completed');
+            this.selectedBtn = 'completed';
+        },
+        showAll() {
+            this.$emit('show-all');
+            this.selectedBtn = 'all';
+        },
+        showActive() {
+            this.$emit('show-active');
+            this.selectedBtn = 'active';
+        }
     }
    
 }</script>
@@ -91,6 +108,12 @@ export default {
             }
             &.length {
                 cursor: default;
+            }
+
+            &.length {
+                &.hidden {
+                    display: none;
+                }
             }
         }
 

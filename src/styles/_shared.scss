@@ -3,6 +3,10 @@
 .item-circle-wrapper {
     position: relative;
 
+    &.hidden {
+        display: none;
+    }
+
     .item-circle {
         background: white;
         height: 55px;
